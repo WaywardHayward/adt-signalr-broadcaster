@@ -10,7 +10,7 @@ namespace adt_signalr_broadcaster.Functions
     public class Negotiate
     {
         [FunctionName("negotiate")]
-        public static SignalRConnectionInfo GetSignalRInfo([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req, [SignalRConnectionInfo(HubName = "%SIGNALR_HUB_NAME%")] SignalRConnectionInfo connectionInfo)
+        public static SignalRConnectionInfo GetSignalRInfo([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req, [SignalRConnectionInfo(HubName = "%SIGNALR_HUB_NAME%", ConnectionStringSetting="SIGNALR_HUB_CONNECTION_STRING")] SignalRConnectionInfo connectionInfo)
         {
             return connectionInfo;
         }

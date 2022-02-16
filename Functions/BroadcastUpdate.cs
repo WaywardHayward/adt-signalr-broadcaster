@@ -62,6 +62,7 @@ namespace adt_signalr_broadcaster.Functions
 
                     return signalRMessages.AddAsync(new SignalRMessage
                     {
+                        
                         Target = "PropertyMessage",
                         Arguments = new[] { property }
                     });
