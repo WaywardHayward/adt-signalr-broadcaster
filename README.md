@@ -3,6 +3,8 @@ This is an azure function which will take Azure Digital Twin Patches from an Eve
 
 ## Settings
 
+Place these settings in either a local.settings.json file or in the environment variables on the function app.
+
 | Setting | Description |
 | --- | --- |
 | ADT_EVENTHUB_NAME | The name of the Event Hub containing the Azure Digital Twin Patches to listen to |
