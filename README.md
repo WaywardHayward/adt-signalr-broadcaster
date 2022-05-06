@@ -1,4 +1,6 @@
 # ADT Signalr Broadcaster
+[![Build](https://github.com/WaywardHayward/adt-signalr-broadcaster/actions/workflows/dotnet.yml/badge.svg)](https://github.com/WaywardHayward/adt-signalr-broadcaster/actions/workflows/dotnet.yml)
+
 This is an azure function which will take Azure Digital Twin Patches from an Event Hub and Forward them onto a SignalR Hub.
 
 ## Settings
