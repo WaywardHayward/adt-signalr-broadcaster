@@ -62,7 +62,7 @@ namespace adt_signalr_broadcaster.Functions
                         {"TwinId", subject },
                     };
 
-                    foreach (var item in patch.SelectTokens("items"))
+                    foreach (var item in patch as JArray)
                     {
                         var propertyName = item.SelectToken("path").ToString();
                         var propertyValue = item.SelectToken("value");
