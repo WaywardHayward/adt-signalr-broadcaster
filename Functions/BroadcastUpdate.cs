@@ -28,13 +28,20 @@ namespace adt_signalr_broadcaster.Functions
         {
             var exceptions = new List<Exception>();
 
-            log.LogInformation($"Messages Recieved {events.Length}");
+            log.LogInformation($"Messages Received {events.Length}");
 
             foreach (EventData eventData in events)
             {
                 try
                 {
                     var messageBody = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
+
+                    // If the message is not a patch ignore it.
+                    if(!messageBody.Contains("\"op\"")) {
+                        log.LogWarning("Message does not contain an op property, and is not a patch, skipping");
+                        continue;
+                    }
+
                     var message = JObject.Parse(messageBody);
                     var subject = eventData.Properties["cloudEvents:subject"].ToString();
                     var patch = message.SelectToken("patch");
@@ -47,6 +54,8 @@ namespace adt_signalr_broadcaster.Functions
                         log.LogInformation($"Subject does not match filter: {_subjectFilter}");
                         continue;   
                     }
+
+                    log.LogInformation("Sending message to SignalR Hub for Subject: {subject}", subject);
 
                     var property = new Dictionary<object, object>
                     {
@@ -69,7 +78,7 @@ namespace adt_signalr_broadcaster.Functions
                 }
                 catch (Exception e)
                 {
-                    
+                    log.LogError(e.ToString());
                     exceptions.Add(e);
                 }
             }
