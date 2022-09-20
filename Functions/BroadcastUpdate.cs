@@ -62,17 +62,20 @@ namespace adt_signalr_broadcaster.Functions
                         {"TwinId", subject },
                     };
 
+                    var properties = new Dictionary<string, string>();
+
                     foreach (var item in patch as JArray)
                     {
                         var propertyName = item.SelectToken("path").ToString();
-                        var propertyValue = item.SelectToken("value");
-                        property.Add(propertyName, propertyValue);
+                        var propertyValue = item.SelectToken("value").ToString();
+                        properties.Add(propertyName, propertyValue);
                     }
 
+                    property.Add("patch", properties);
+
                     return signalRMessages.AddAsync(new SignalRMessage
-                    {
-                        
-                        Target = "PropertyMessage",
+                    {                        
+                        Target = subject,
                         Arguments = new[] { property }
                     });
                 }
